@@ -93,6 +93,12 @@ img {
   transform: translateY(-2px);
 }
 
+.button:disabled {
+  cursor: progress;
+  opacity: 0.72;
+  transform: none;
+}
+
 .button-primary {
   color: var(--white);
   background: var(--red);
