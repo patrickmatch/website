@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-Hant"> 
+<html lang="zh-Hant">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,7 +19,7 @@
   <body>
     <header class="site-header">
       <a class="brand" href="#top" aria-label="Matchverse.ai home">
-        <img src="assets/matchverse-logo.png" alt="Matchverse.ai" />
+        <img src="./assets/matchverse-logo.png" alt="Matchverse.ai" />
       </a>
       <nav class="nav-links" aria-label="Primary navigation">
         <a href="#solution" data-i18n="nav_solution">解決方案</a>
@@ -69,7 +69,7 @@
           <div class="phone-frame">
             <div class="phone-screen">
               <div class="app-bar">
-                <img src="assets/matchverse-logo.png" alt="" />
+                <img src="./assets/matchverse-logo.png" alt="" />
                 <span>Matchverse</span>
               </div>
               <div class="match-card">
@@ -221,24 +221,27 @@
               告訴我們你的活動類型、預計人數與媒合目標，我們將協助規劃 Matchverse.ai 的導入方式。
             </p>
           </div>
-          <form class="consult-form">
+          <form class="consult-form" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="b86a079e-6d67-434d-9d07-afef13e09d5c" />
+            <input type="hidden" name="subject" value="New Matchverse.ai consultation request" />
+            <input type="hidden" name="from_name" value="Matchverse.ai Website" />
             <label>
               <span data-i18n="form_name">姓名</span>
-              <input type="text" name="name" autocomplete="name" />
+              <input type="text" name="name" autocomplete="name" required />
             </label>
             <label>
               <span data-i18n="form_email">Email</span>
-              <input type="email" name="email" autocomplete="email" />
+              <input type="email" name="email" autocomplete="email" required />
             </label>
             <label>
               <span data-i18n="form_event">活動類型</span>
-              <input type="text" name="event" />
+              <input type="text" name="event_type" required />
             </label>
             <label>
               <span data-i18n="form_message">想達成的媒合目標</span>
-              <textarea name="message" rows="4"></textarea>
+              <textarea name="message" rows="4" required></textarea>
             </label>
-            <button class="button button-primary" type="button" data-i18n="form_submit">送出諮詢需求</button>
+            <button class="button button-primary" type="submit" data-i18n="form_submit">送出諮詢需求</button>
             <p class="form-note" aria-live="polite" data-i18n="form_note"></p>
           </form>
         </div>
@@ -246,7 +249,7 @@
     </main>
 
     <footer class="site-footer">
-      <img src="assets/matchverse-logo.png" alt="Matchverse.ai" />
+      <img src="./assets/matchverse-logo.png" alt="Matchverse.ai" />
       <p data-i18n="footer_text">Matchverse 你最佳的商務媒合軟體。</p>
     </footer>
 
