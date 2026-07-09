@@ -70,7 +70,7 @@ const translations = {
     form_submit: "送出諮詢需求",
     form_note: "",
     form_sending: "正在送出諮詢需求...",
-    form_success: "已送出諮詢需求，我們會盡快與你聯繫。",
+    form_success: "已記錄你的諮詢需求。Matchverse團隊會儘速與您聯繫。",
     form_error: "送出時發生問題，請稍後再試或直接寄信聯繫團隊。",
     footer_text: "Matchverse 你最佳的商務媒合軟體。"
   },
@@ -174,6 +174,11 @@ toggle.addEventListener("click", () => {
 const consultForm = document.querySelector(".consult-form");
 const formButton = document.querySelector(".consult-form button");
 const formNote = document.querySelector(".form-note");
+const redirectInput = document.querySelector('input[name="redirect"]');
+
+if (redirectInput) {
+  redirectInput.value = new URL("success.html", window.location.href).href;
+}
 
 consultForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -193,6 +198,7 @@ consultForm.addEventListener("submit", async (event) => {
     if (response.ok && result.success) {
       consultForm.reset();
       formNote.textContent = translations[currentLanguage].form_success;
+      window.location.href = redirectInput.value;
     } else {
       formNote.textContent = translations[currentLanguage].form_error;
     }
