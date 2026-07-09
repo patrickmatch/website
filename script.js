@@ -69,7 +69,9 @@ const translations = {
     form_message: "想達成的媒合目標",
     form_submit: "送出諮詢需求",
     form_note: "",
-    form_success: "已記錄你的諮詢需求。接上正式表單服務後即可送出給團隊。",
+    form_sending: "正在送出諮詢需求...",
+    form_success: "已送出諮詢需求，我們會盡快與你聯繫。",
+    form_error: "送出時發生問題，請稍後再試或直接寄信聯繫團隊。",
     footer_text: "Matchverse 你最佳的商務媒合軟體。"
   },
   en: {
@@ -142,7 +144,9 @@ const translations = {
     form_message: "Matchmaking goal",
     form_submit: "Submit consultation request",
     form_note: "",
-    form_success: "Your consultation request has been noted. Connect a form service to send it to the team.",
+    form_sending: "Sending your consultation request...",
+    form_success: "Your consultation request has been sent. We will contact you soon.",
+    form_error: "Something went wrong. Please try again later or contact the team by email.",
     footer_text: "Matchverse, your best business matchmaking software."
   }
 };
@@ -167,9 +171,34 @@ toggle.addEventListener("click", () => {
   applyLanguage(currentLanguage === "zh" ? "en" : "zh");
 });
 
+const consultForm = document.querySelector(".consult-form");
 const formButton = document.querySelector(".consult-form button");
 const formNote = document.querySelector(".form-note");
 
-formButton.addEventListener("click", () => {
-  formNote.textContent = translations[currentLanguage].form_success;
+consultForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  formNote.textContent = translations[currentLanguage].form_sending;
+  formButton.disabled = true;
+
+  try {
+    const response = await fetch(consultForm.action, {
+      method: "POST",
+      body: new FormData(consultForm),
+      headers: {
+        Accept: "application/json"
+      }
+    });
+    const result = await response.json();
+
+    if (response.ok && result.success) {
+      consultForm.reset();
+      formNote.textContent = translations[currentLanguage].form_success;
+    } else {
+      formNote.textContent = translations[currentLanguage].form_error;
+    }
+  } catch (error) {
+    formNote.textContent = translations[currentLanguage].form_error;
+  } finally {
+    formButton.disabled = false;
+  }
 });
